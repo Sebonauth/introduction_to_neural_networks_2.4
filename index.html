@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Biological to Artificial Neurons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            font-size: 150%;
+        }
+        section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+        p {
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 20px;
+        }
+        .image-placeholder img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .stop-and-think {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-left: 4px solid #007bff;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .stop-and-think button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .stop-and-think button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .stop-and-think button:active {
+            background-color: #004085;
+            transform: scale(0.95);
+        }
+        .stop-and-think .reveal-text {
+            display: none;
+            margin-top: 10px;
+            background-color: #eaf5ff;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .continue-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 15px;
+            color: #ffffff;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .continue-button.hidden {
+            display: none;
+        }
+        .continue-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <section id="section1">
+        <p>While biological neurons are incredibly complex, scientists and engineers have developed simplified models to capture some of their key properties.</p>
+        <div class="continue-button" data-next-section="2">Continue</div>
+    </section>
+
+    <section id="section2">
+        <p>These models form the basis of artificial neurons, which are the fundamental units of artificial neural networks.</p>
+        <div class="continue-button" data-next-section="3">Continue</div>
+    </section>
+
+    <section id="section3">
+        <p>By abstracting the essential features of biological neurons, we can create computational systems that can learn and make decisions.</p>
+        <div class="image-placeholder">
+            <img src="path-to-image.jpg" alt="A comparison between a biological neuron and an artificial neuron model, showing the abstraction of components.">
+        </div>
+        <div class="continue-button" data-next-section="4">Continue</div>
+    </section>
+
+    <section id="section4">
+        <div class="stop-and-think">
+            <p><strong>Stop and Think:</strong> What aspects of a biological neuron do you think are most important to model in an artificial neuron?</p>
+            <button onclick="revealText()">Reveal</button>
+            <div class="reveal-text">
+                <p>Key aspects include the ability to receive multiple inputs, integrate them, and produce an output signal based on some threshold or activation function.</p>
+            </div>
+        </div>
+        <div class="continue-button hidden" data-next-section="5">Continue</div>
+    </section>
+
+    <section id="section5">
+        <p>Let's explore how we can represent the components of a biological neuron in an artificial neuron.</p>
+    </section>
+
+    <script>
+        document.getElementById("section1").style.display = "block";
+        document.getElementById("section1").style.opacity = "1";
+
+        document.addEventListener('click', (event) => {
+            if (event.target.classList.contains('continue-button')) {
+                const nextSectionId = event.target.getAttribute('data-next-section');
+                const nextSection = document.getElementById(`section${nextSectionId}`);
+                event.target.style.display = "none";
+                nextSection.style.display = "block";
+                setTimeout(() => nextSection.style.opacity = "1", 10);
+                setTimeout(() => nextSection.scrollIntoView({ behavior: 'smooth' }), 500);
+            }
+        });
+
+        function revealText() {
+            const revealTextDiv = document.querySelector('.stop-and-think .reveal-text');
+            revealTextDiv.style.display = 'block';
+
+            // Show the continue button
+            const continueButton = document.querySelector('.continue-button.hidden');
+            continueButton.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
