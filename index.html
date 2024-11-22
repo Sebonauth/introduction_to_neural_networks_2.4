@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>From Biological to Artificial Neurons</title>
+    <title>From Biology to Mathematics</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,50 +17,113 @@
             margin-bottom: 20px;
             padding: 20px;
             background-color: #ffffff;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease-in;
+            display: none; /* Initially hidden */
+            opacity: 0; /* Initially invisible for fade-in effect */
+            transition: opacity 0.5s ease-in; /* Fade-in effect */
         }
-        p {
+        h1, h3, h4 {
+            color: #333;
+            margin-top: 20px;
+        }
+        p, li {
             line-height: 1.6;
             color: #444;
             margin-bottom: 20px;
         }
-        .image-placeholder img {
+        ul {
+            padding-left: 20px;
+        }
+        .image-placeholder, .interactive-placeholder, .continue-button, .vocab-section, .why-it-matters, .test-your-knowledge, .faq-section {
+            text-align: left;
+        }
+        .image-placeholder img, .interactive-placeholder img {
             max-width: 100%;
             height: auto;
             border-radius: 5px;
         }
-        .stop-and-think {
-            background-color: #f9f9f9;
+        .vocab-section, .why-it-matters, .test-your-knowledge, .faq-section {
             padding: 20px;
-            margin: 20px 0;
             border-radius: 8px;
+            margin-top: 20px;
         }
-        .stop-and-think button {
+        .vocab-section {
+            background-color: #f0f8ff;
+        }
+        .vocab-section h3 {
+            color: #1e90ff;
+            font-size: 0.75em;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        .vocab-section h4 {
+            color: #000;
+            font-size: 0.9em;
             margin-top: 10px;
+            margin-bottom: 8px;
+        }
+        .vocab-term {
+            font-weight: bold;
+            color: #1e90ff;
+        }
+        .why-it-matters {
+            background-color: #ffe6f0;
+        }
+        .why-it-matters h3 {
+            color: #d81b60;
+            font-size: 0.75em;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        .why-it-matters h4 {
+            color: #000;
+            font-size: 0.9em;
+            margin-top: 10px;
+            margin-bottom: 8px;
+        }
+        .test-your-knowledge {
+            background-color: #e6ffe6; /* Light green background */
+        }
+        .test-your-knowledge h3 {
+            color: #28a745; /* Dark green heading */
+            font-size: 0.75em;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        .test-your-knowledge h4 {
+            color: #000;
+            font-size: 0.9em;
+            margin-top: 10px;
+            margin-bottom: 8px;
+        }
+        .test-your-knowledge p {
+            margin-bottom: 15px;
+        }
+        .check-button {
+            display: inline-block;
             padding: 10px 20px;
+            margin-top: 15px;
             color: #ffffff;
-            background-color: #007bff;
-            border: none;
+            background-color: #28a745; /* Green background */
             border-radius: 5px;
+            text-decoration: none;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            font-size: 1em;
         }
-        .stop-and-think button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
+        .faq-section {
+            background-color: #fffbea; /* Light yellow background */
         }
-        .stop-and-think button:active {
-            background-color: #004085;
-            transform: scale(0.95);
+        .faq-section h3 {
+            color: #ffcc00; /* Bright yellow heading */
+            font-size: 0.75em;
+            margin-bottom: 5px;
+            margin-top: 5px;
         }
-        .stop-and-think .reveal-text {
-            display: none;
+        .faq-section h4 {
+            color: #000;
+            font-size: 0.9em;
             margin-top: 10px;
-            background-color: #eaf5ff;
-            padding: 10px;
-            border-radius: 8px;
+            margin-bottom: 8px;
         }
         .continue-button {
             display: inline-block;
@@ -70,73 +134,108 @@
             border-radius: 5px;
             text-decoration: none;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
-        .continue-button.hidden {
-            display: none;
+        .stop-and-think {
+            background-color: #e6e6ff; /* Light blue background */
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
         }
-        .continue-button:hover {
-            background-color: #0056b3;
+        .stop-and-think h3 {
+            color: #4b0082; /* Indigo heading */
+            font-size: 0.75em;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        .stop-and-think h4 {
+            color: #000;
+            font-size: 0.9em;
+            margin-top: 10px;
+            margin-bottom: 8px;
+        }
+        .reveal-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 15px;
+            color: #ffffff;
+            background-color: #4b0082; /* Indigo background */
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-
     <section id="section1">
-        <p>While biological neurons are incredibly complex, scientists and engineers have developed simplified models to capture some of their key properties.</p>
-        <div class="continue-button" data-next-section="2">Continue</div>
+        <h1>From Biology to Mathematics</h1>
+        <p>Now that we've seen how biological neurons work, let's do something amazing – let's turn this biological process into mathematics! Don't worry if math isn't your favorite subject; we'll build this bridge step by step.</p>
+        <div class="interactive-placeholder">
+            <img src="/placeholder.svg?height=300&width=600" alt="Side-by-side morphing animation showing a biological neuron transforming into its mathematical model">
+        </div>
+        <div class="continue-button" onclick="showNextSection(2)">Continue</div>
     </section>
 
     <section id="section2">
-        <p>These models form the basis of artificial neurons, which are the fundamental units of artificial neural networks.</p>
-        <div class="continue-button" data-next-section="3">Continue</div>
+        <p>Think about how you make decisions. When deciding whether to bring an umbrella, you might think: 'Well, the clouds look pretty dark (important factor!), but the forecast says only 20% chance of rain (less important), and I'm only going out for a short time (somewhat important).' You're actually doing something very similar to what our artificial neuron will do – weighing different factors and making a decision.</p>
+        <div class="continue-button" onclick="showNextSection(3)">Continue</div>
     </section>
 
     <section id="section3">
-        <p>By abstracting the essential features of biological neurons, we can create computational systems that can learn and make decisions.</p>
-        <div class="image-placeholder">
-            <img src="path-to-image.jpg" alt="A comparison between a biological neuron and an artificial neuron model, showing the abstraction of components.">
+        <p>Let's build our artificial neuron following this same logic. Just like you gave different importance to different factors in the umbrella decision, our artificial neuron assigns 'weights' to its inputs. Here's how it works:</p>
+        <div class="vocab-section">
+            <h3>Build Your Vocab</h3>
+            <h4>Weights</h4>
+            <p>Numerical values that determine how important each input is to the neuron's decision. Like volume knobs, they can be turned up (more important) or down (less important).</p>
         </div>
-        <div class="continue-button" data-next-section="4">Continue</div>
+        <div class="continue-button" onclick="showNextSection(4)">Continue</div>
     </section>
 
     <section id="section4">
+        <p>The mathematical formula looks like this:</p>
+        <p>\[z = w_1x_1 + w_2x_2 + \ldots + w_nx_n + b\]</p>
+        <p>Don't let this equation scare you! It's just saying: take each input (x), multiply it by how important it is (w), add them all up, and add a little extra number (b) that makes the neuron more or less likely to fire overall.</p>
         <div class="stop-and-think">
-            <p><strong>Stop and Think:</strong> What aspects of a biological neuron do you think are most important to model in an artificial neuron?</p>
-            <button onclick="revealText()">Reveal</button>
-            <div class="reveal-text">
-                <p>Key aspects include the ability to receive multiple inputs, integrate them, and produce an output signal based on some threshold or activation function.</p>
-            </div>
+            <h3>Stop and Think</h3>
+            <h4>Why do you think we need that extra number b (called the bias)? Think about your own decision-making process.</h4>
+            <button class="reveal-button" onclick="revealAnswer()">Reveal Answer</button>
+            <p id="reveal-text" style="display: none;">Sometimes we have natural biases in our decisions. You might be generally optimistic or cautious. The bias term b plays a similar role – it makes the neuron naturally more or less likely to fire, regardless of the inputs.</p>
         </div>
-        <div class="continue-button hidden" data-next-section="5">Continue</div>
-    </section>
-
-    <section id="section5">
-        <p>Let's explore how we can represent the components of a biological neuron in an artificial neuron.</p>
     </section>
 
     <script>
+        // Show the first section initially
         document.getElementById("section1").style.display = "block";
-        document.getElementById("section1").style.opacity = "1";
+        document.getElementById("section1").style.opacity = "1"; // Make the first section visible
 
-        document.addEventListener('click', (event) => {
-            if (event.target.classList.contains('continue-button')) {
-                const nextSectionId = event.target.getAttribute('data-next-section');
-                const nextSection = document.getElementById(`section${nextSectionId}`);
-                event.target.style.display = "none";
-                nextSection.style.display = "block";
-                setTimeout(() => nextSection.style.opacity = "1", 10);
-                setTimeout(() => nextSection.scrollIntoView({ behavior: 'smooth' }), 500);
-            }
-        });
+        // Function to show the next section with fade-in and then scroll to it
+        function showNextSection(nextSectionId) {
+            const currentButton = event.target;
+            const nextSection = document.getElementById("section" + nextSectionId);
+            
+            // Hide the clicked button
+            currentButton.style.display = "none";
+            
+            // Show the next section with a fade-in effect
+            nextSection.style.display = "block";
+            setTimeout(() => {
+                nextSection.style.opacity = "1"; // Fade in the section
+            }, 10);
 
-        function revealText() {
-            const revealTextDiv = document.querySelector('.stop-and-think .reveal-text');
-            revealTextDiv.style.display = 'block';
+            // Scroll to the new section after it fades in
+            setTimeout(() => {
+                nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 500); // Delay scrolling until fade-in completes
+        }
 
-            // Show the continue button
-            const continueButton = document.querySelector('.continue-button.hidden');
-            continueButton.classList.remove('hidden');
+        // Function to reveal the answer in the Stop and Think section
+        function revealAnswer() {
+            const revealText = document.getElementById("reveal-text");
+            const revealButton = document.querySelector(".reveal-button");
+            
+            revealText.style.display = "block";
+            revealButton.style.display = "none";
         }
     </script>
 </body>
